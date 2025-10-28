@@ -28,6 +28,7 @@
 #include "connect.h"
 #include "YunTai.h"
 #include "VOFA.h"
+#include "Track.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -62,6 +63,7 @@ bool Trans_Flag = false;
 
 /* External variables --------------------------------------------------------*/
 extern TIM_HandleTypeDef htim4;
+extern TIM_HandleTypeDef htim5;
 extern DMA_HandleTypeDef hdma_usart1_rx;
 extern DMA_HandleTypeDef hdma_usart2_rx;
 extern UART_HandleTypeDef huart1;
@@ -265,6 +267,20 @@ void USART2_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles TIM5 global interrupt.
+  */
+void TIM5_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM5_IRQn 0 */
+
+  /* USER CODE END TIM5_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim5);
+  /* USER CODE BEGIN TIM5_IRQn 1 */
+
+  /* USER CODE END TIM5_IRQn 1 */
+}
+
+/**
   * @brief This function handles DMA2 stream2 global interrupt.
   */
 void DMA2_Stream2_IRQHandler(void)
@@ -317,6 +333,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
       }
       /**********************************************************************/
       cnt = 0;
+    }
+  } else if (htim == &htim5) {
+    static uint8_t cnt = 0;
+    cnt++;
+    float mid = MID_W;
+    if (cnt >= 15) {
+      float result_x = Track_Blob_PID_X();
+      DuoJi_SetAngle(DOWN, result_x);
+      cnt = 0;
+      printf("%f, %f\r\n", target_x, mid);
     }
   }
 }
