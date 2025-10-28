@@ -23,6 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <math.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include "connect.h"
 #include "YunTai.h"
@@ -31,7 +32,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN TD */
-
+bool Trans_Flag = false;
 /* USER CODE END TD */
 
 /* Private define ------------------------------------------------------------*/
@@ -324,7 +325,8 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
 {
   if(huart == &CONNECT_UART) {
     Connect_Trans();
-    printf("%d, %d, %d\r\n", result[0], result[1], result[2]);
+    //printf("%d, %d, %d\r\n", result[0], result[1], result[2]);
+    Trans_Flag = true;
   }
 }
 /* USER CODE END 1 */

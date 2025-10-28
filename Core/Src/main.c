@@ -26,8 +26,10 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
+#include "stm32f4xx_it.h"
 #include "connect.h"
 #include "VOFA.h"
+#include "Track.h"
 #include "Delay.h"
 #include "YunTai.h"
 /* USER CODE END Includes */
@@ -50,7 +52,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+uint16_t x = 0, y = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -111,17 +113,11 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    if (cur_angle_down < MAX_Angle_Down) {
-      DuoJi_SetSpeed(DOWN, 3);
-      Delay_s(2);
-      DuoJi_SetSpeed(DOWN, 10);
-      Delay_s(2);
-    } else if (cur_angle_down == MAX_Angle_Down) {
-      DuoJi_SetSpeed(DOWN, -3);
-      Delay_s(2);
-      DuoJi_SetSpeed(DOWN, -10);
-      Delay_s(2);
+    if (Trans_Flag) {
+      x = result[0], y = result[1];
+      Trans_Flag = false;
     }
+    Track_Blob_Grad(x, y);
     
     /* USER CODE BEGIN 3 */
   

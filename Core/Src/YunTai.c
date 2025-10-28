@@ -58,7 +58,7 @@ void DuoJi_SetAngle(DuoJi direct, float angle)      //设置云台舵机角度
 void DuoJi_Init(void)           //云台初始化
 {
     DuoJi_SetAngle(DOWN, 0);
-    DuoJi_SetAngle(UP, -30);
+    DuoJi_SetAngle(UP, -25);
     Delay_ms(1000);
 }
 

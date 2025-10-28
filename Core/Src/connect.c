@@ -3,7 +3,7 @@
 #include "usart.h"
 
 uint8_t rx_buf[MAX] = {0};
-uint8_t result[3] = {0};
+uint16_t result[3] = {0};
 
 void __Connect_Clear_RX(void)
 {

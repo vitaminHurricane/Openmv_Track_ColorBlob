@@ -27,12 +27,12 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdbool.h>
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
+extern bool Trans_Flag;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/

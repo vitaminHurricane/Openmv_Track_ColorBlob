@@ -13,7 +13,7 @@
 #define MAX                 9
 
 extern uint8_t rx_buf[];
-extern uint8_t result[];
+extern uint16_t result[];
 
 void Connect_Openmv_Start(void);
 void Connect_Trans(void);
