@@ -284,8 +284,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     static uint16_t cnt = 0;
     cnt++;
     if (cnt >= 10) {
-      if (cur_angle_up != aim_up) {
-        cur_angle_up += change_up;
+      /************************云台定时旋转角度调节***************************/
+      if (cur_angle_up != aim_up) {       //当当前角度不符合期望角度时
+        cur_angle_up += change_up;        //每次让当前角度向期望角度靠拢change的量
         if (fabs(cur_angle_up - aim_up) <= 3) {
           DuoJi_SetAngle(UP, aim_up);
           cur_angle_up = aim_up;
@@ -302,6 +303,18 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
           DuoJi_SetAngle(DOWN, cur_angle_down);
         }
       } 
+      /**********************************************************************/
+      if (change_up != 0) {
+        cur_angle_up += change_up;
+        aim_up = cur_angle_up;
+        DuoJi_SetAngle(UP, cur_angle_up);
+      }
+      if (change_down != 0) {
+        cur_angle_down += change_down;
+        aim_down = cur_angle_down;
+        DuoJi_SetAngle(DOWN, cur_angle_down);
+      }
+      /**********************************************************************/
       cnt = 0;
     }
   }

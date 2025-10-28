@@ -37,7 +37,7 @@ typedef enum{
     DOWN,
 }DuoJi;
 
-extern float cur_angle_up, cur_angle_down;
+extern float cur_angle_up, cur_angle_down;          //记录当前上下舵机所处角度，方便舵机控制
 extern float aim_up, aim_down;
 extern float time_up, time_down;
 extern float change_up, change_down;
@@ -46,6 +46,8 @@ extern float change_up, change_down;
 float __DuoJi_AngleLimit(DuoJi direct, float angle);
 float __DuoJi_GetPWM_Up(float angle);
 float __DuoJi_GetPWM_Down(float angle);
+void __DuoJi_SetSpeed_Up(int8_t speed);
+void __DuoJi_SetSpeed_Down(int8_t speed);
 /*****************************************************************************/
 
 
@@ -54,6 +56,7 @@ void DuoJi_Init(void);
 void DuoJi_SetAngle(DuoJi direct, float angle);
 void DuoJi_Control_T(DuoJi direct, float aim, uint16_t time_ms);
 void DuoJi_Control(DuoJi direct, float aim, uint16_t time_ms);
+void DuoJi_SetSpeed(DuoJi direct, int8_t speed);
 /*****************************************************************************/
 
 

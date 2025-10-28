@@ -106,13 +106,23 @@ int main(void)
   DuoJi_Init();
   Connect_Openmv_Start();
   /* USER CODE END 2 */
-
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
-
+    if (cur_angle_down < MAX_Angle_Down) {
+      DuoJi_SetSpeed(DOWN, 3);
+      Delay_s(2);
+      DuoJi_SetSpeed(DOWN, 10);
+      Delay_s(2);
+    } else if (cur_angle_down == MAX_Angle_Down) {
+      DuoJi_SetSpeed(DOWN, -3);
+      Delay_s(2);
+      DuoJi_SetSpeed(DOWN, -10);
+      Delay_s(2);
+    }
+    
     /* USER CODE BEGIN 3 */
   
   }
