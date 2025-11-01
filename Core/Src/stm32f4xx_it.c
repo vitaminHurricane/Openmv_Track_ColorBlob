@@ -337,12 +337,14 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   } else if (htim == &htim5) {
     static uint8_t cnt = 0;
     cnt++;
-    float mid = MID_W;
+    float mid = MID_H;
     if (cnt >= 15) {
       float result_x = Track_Blob_PID_X();
+      float result_y = Track_Blob_PID_Y();
       DuoJi_SetAngle(DOWN, result_x);
+      DuoJi_SetAngle(UP, result_y);
       cnt = 0;
-      printf("%f, %f\r\n", target_x, mid);
+      printf("%f, %f\r\n", target_y, mid);
     }
   }
 }

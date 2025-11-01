@@ -4,8 +4,10 @@
 #include "connect.h"
 #include <stdio.h>
 
-float P_x = 0.114, I_x = 0.04, D_x = 0.13;
+float P_x = 0.124, I_x = 0.04, D_x = 0.15;
+float P_y = 0.1, I_y = 0.03, D_y = 0.13;
 float err_cur_x = 0, err_pre_x = 0, err_int_x = 0;
+float err_cur_y = 0, err_pre_y = 0, err_int_y = 0;
 float target_x = MID_W, target_y = MID_H;
 
 void Track_Blob_Grad(uint16_t x, uint16_t y)
@@ -55,8 +57,7 @@ float Track_Blob_PID_X(void)
     err_pre_x = err_cur_x;                      //当err_cur_x大于0时，说明目标在右边，setangle为负时，舵机右转
     err_cur_x = target_x - MID_W;               //当err_cur_x小于0时，说明目标在左边，setangle为正时，舵机左转
     
-    
-    if (err_cur_x >= -3 && err_cur_x <= 3) {
+    if (err_cur_x >= -2 && err_cur_x <= 2) {
         //err_cur_x = 0;
     } else {
         err_int_x += err_cur_x;         
@@ -66,3 +67,21 @@ float Track_Blob_PID_X(void)
 
     return result;
 }
+
+//当上舵机设置角度为负数时，向上抬头；为正数时向下低头
+float Track_Blob_PID_Y(void)
+{
+    err_pre_y = err_cur_y;
+    err_cur_y = target_y - MID_H;
+
+    if (err_cur_y >= -2 && err_cur_y <= 2) {
+
+    } else {
+        err_int_y += err_cur_y;
+    }
+
+    float result = P_y * err_cur_y + I_y * err_int_y + D_y * (err_cur_y - err_pre_y);
+
+    return result;
+}
+

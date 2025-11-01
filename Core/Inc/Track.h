@@ -9,5 +9,6 @@ extern float target_x, target_y;
 void Track_Update_Target(void);
 void Track_Blob_Grad(uint16_t x, uint16_t y);
 float Track_Blob_PID_X(void);
+float Track_Blob_PID_Y(void);
 
 #endif
